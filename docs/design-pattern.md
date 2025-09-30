@@ -1,2 +1,2 @@
 # Design Pattern
-Dokumentasi pola desain (Container–Presenter & Hooks) akan ditulis di sini.
+Dokumentasi pola desain (Container–Presenter & Hooks) akan ditulis di sini ya. 
