@@ -4,9 +4,9 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 
 export default function LoginPage() {
-  const router = useRouter();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const router = useRouter();
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
@@ -18,38 +18,37 @@ export default function LoginPage() {
       localStorage.setItem("role", "user");
       router.push("/user");
     } else {
-      alert("Username atau password salah!");
+      alert("Username atau password salah");
     }
   };
 
   return (
-    <main className="flex items-center justify-center h-screen bg-gray-100">
-      <form
-        onSubmit={handleLogin}
-        className="bg-white p-6 rounded-lg shadow-md w-80 space-y-4"
-      >
-        <h1 className="text-xl font-bold text-center">Login</h1>
-        <input
-          type="text"
-          placeholder="Username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          className="w-full border p-2 rounded"
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          className="w-full border p-2 rounded"
-        />
-        <button
-          type="submit"
-          className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded"
-        >
-          Masuk
-        </button>
-      </form>
+    <main className="flex items-center justify-center min-h-screen bg-gradient-to-br from-gray-200 to-gray-400">
+      <div className="bg-white shadow-lg rounded-lg p-8 w-96">
+        <h1 className="text-2xl font-bold text-center mb-6">Login</h1>
+        <form onSubmit={handleLogin} className="space-y-4">
+          <input
+            type="text"
+            placeholder="Username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            className="border p-2 rounded w-full"
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className="border p-2 rounded w-full"
+          />
+          <button
+            type="submit"
+            className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded"
+          >
+            Masuk
+          </button>
+        </form>
+      </div>
     </main>
   );
 }
