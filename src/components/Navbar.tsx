@@ -2,9 +2,26 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 
 export default function Navbar() {
   const pathname = usePathname();
+  const router = useRouter();
+  const [role, setRole] = useState<string | null>(null);
+
+  useEffect(() => {
+    // Ambil role dari localStorage
+    const storedRole = localStorage.getItem("role");
+    if (storedRole) {
+      setRole(storedRole);
+    }
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem("role");
+    setRole(null);
+    router.push("/login");
+  };
 
   const navItems = [
     { href: "/", label: "Dashboard" },
@@ -14,7 +31,7 @@ export default function Navbar() {
   ];
 
   return (
-    <nav className="bg-gray-900 text-white px-6 py-4 shadow-md">
+    <nav className="bg-gray-900 text-white px-6 py-4 shadow-md flex justify-between items-center">
       <ul className="flex space-x-6">
         {navItems.map((item) => (
           <li key={item.href}>
@@ -29,6 +46,17 @@ export default function Navbar() {
           </li>
         ))}
       </ul>
+
+      {/* Jika user login, tampilkan tombol Logout */}
+      {role && (
+        <button
+          onClick={handleLogout}
+          className="bg-red-600 hover:bg-red-700 px-4 py-2 rounded text-white font-semibold"
+        >
+          Logout
+        </button>
+      )}
+
     </nav>
   );
 }
