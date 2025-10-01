@@ -49,12 +49,12 @@ export default function PriceForm({ onSubmit, initialData }: Props) {
         placeholder="Nama barang"
         value={nama}
         onChange={(e) => setNama(e.target.value)}
-        className="border p-2 rounded w-full"
+        className="border p-2 rounded w-full bg-gray-900"
       />
       <select
         value={kategori}
         onChange={(e) => setKategori(e.target.value as any)}
-        className="border p-2 rounded w-full"
+        className="border p-2 rounded w-full bg-gray-900"
       >
         <option value="pokok">Pokok</option>
         <option value="sayur">Sayur</option>
@@ -66,7 +66,7 @@ export default function PriceForm({ onSubmit, initialData }: Props) {
         placeholder="Harga"
         value={harga}
         onChange={(e) => setHarga(e.target.value)}
-        className="border p-2 rounded w-full"
+        className="border p-2 rounded w-full bg-gray-900"
       />
       <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded">
         {initialData ? "Update" : "Tambah"}
