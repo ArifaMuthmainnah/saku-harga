@@ -10,53 +10,70 @@ export default function Navbar() {
   const [role, setRole] = useState<string | null>(null);
 
   useEffect(() => {
-    // Ambil role dari localStorage
     const storedRole = localStorage.getItem("role");
-    if (storedRole) {
-      setRole(storedRole);
-    }
+    setRole(storedRole);
   }, []);
 
   const handleLogout = () => {
     localStorage.removeItem("role");
-    setRole(null);
     router.push("/login");
   };
 
-  const navItems = [
-    { href: "/", label: "Dashboard" },
-    { href: "/user", label: "User" },
-    { href: "/admin", label: "Admin" },
-    { href: "/login", label: "Login" },
-  ];
-
   return (
-    <nav className="bg-gray-900 text-white px-6 py-4 shadow-md flex justify-between items-center">
-      <ul className="flex space-x-6">
-        {navItems.map((item) => (
-          <li key={item.href}>
-            <Link
-              href={item.href}
-              className={`hover:text-yellow-400 transition ${
-                pathname === item.href ? "text-yellow-400 font-bold" : ""
-              }`}
-            >
-              {item.label}
-            </Link>
-          </li>
-        ))}
-      </ul>
+    <nav className="flex justify-between items-center bg-gray-900 text-white p-4 shadow">
+      {/* Judul Kiri */}
+      <div className="font-bold text-xl">
+        {role === "admin"
+          ? "Dashboard Admin"
+          : role === "user"
+          ? "Dashboard User"
+          : "Saku-Harga"}
+      </div>
 
-      {/* Jika user login, tampilkan tombol Logout */}
-      {role && (
-        <button
-          onClick={handleLogout}
-          className="bg-red-600 hover:bg-red-700 px-4 py-2 rounded text-white font-semibold"
-        >
-          Logout
-        </button>
-      )}
-
+      {/* Menu Kanan */}
+      <div className="flex space-x-4">
+        {role === "admin" ? (
+          <>
+            <Link href="/admin">Dashboard Admin</Link>
+            <Link href="/about">Tentang Kami</Link>
+            <div className="relative group">
+              <button className="hover:text-yellow-400">Profil</button>
+              <div className="absolute hidden group-hover:block bg-white text-black p-2 rounded shadow right-0">
+                <p className="text-sm font-semibold">Admin</p>
+                <button
+                  onClick={handleLogout}
+                  className="text-red-600 text-sm hover:underline"
+                >
+                  Logout
+                </button>
+              </div>
+            </div>
+          </>
+        ) : role === "user" ? (
+          <>
+            <Link href="/user">Dashboard User</Link>
+            <Link href="/about">Tentang Kami</Link>
+            <div className="relative group">
+              <button className="hover:text-yellow-400">Profil</button>
+              <div className="absolute hidden group-hover:block bg-white text-black p-2 rounded shadow right-0">
+                <p className="text-sm font-semibold">User</p>
+                <button
+                  onClick={handleLogout}
+                  className="text-red-600 text-sm hover:underline"
+                >
+                  Logout
+                </button>
+              </div>
+            </div>
+          </>
+        ) : (
+          <>
+            <Link href="/">Dashboard</Link>
+            <Link href="/about">Tentang Kami</Link>
+            <Link href="/login">Login</Link>
+          </>
+        )}
+      </div>
     </nav>
   );
 }

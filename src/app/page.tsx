@@ -27,7 +27,7 @@ export default function LandingPage() {
       </section>
 
       {/* Tentang Kami (optional untuk scroll dari Navbar nanti) */}
-      <section id="about" className="max-w-4xl mx-auto px-6 pb-20">
+      <section id="about" className="max-w-4xl mx-auto px-6 pb-20 text-center">
         <div className="bg-white/5 backdrop-blur rounded-xl p-6 border border-white/10">
           <h2 className="text-xl font-bold mb-2">Tentang Kami</h2>
           <p className="text-gray-200">
