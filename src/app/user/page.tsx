@@ -9,7 +9,7 @@ export default function UserDashboard() {
   const { hargaList } = useHarga();
   const [query, setQuery] = useState("");
 
-  // Filter nama barang
+  // Filter barang sesuai pencarian
   const filtered = hargaList.filter((item) =>
     item.nama.toLowerCase().includes(query.toLowerCase())
   );
@@ -20,12 +20,12 @@ export default function UserDashboard() {
         📊 Dashboard User - Daftar Harga
       </h1>
 
-      {/* Search Bar di dalam card */}
+      {/* Card Search */}
       <div className="bg-white p-4 rounded-lg shadow-md mb-6">
         <SearchBar value={query} onChange={setQuery} />
       </div>
 
-      {/* Tabel harga dalam card */}
+      {/* Card Table */}
       <div className="bg-white p-4 rounded-lg shadow-md">
         <PriceTable data={filtered} />
       </div>
