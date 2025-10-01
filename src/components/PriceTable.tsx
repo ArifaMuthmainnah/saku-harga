@@ -2,9 +2,11 @@ import { ItemHarga, formatRupiah } from "@/lib/useHarga";
 
 interface Props {
   data: ItemHarga[];
+  onEdit?: (item: ItemHarga) => void;
+  onDelete?: (id: string) => void;
 }
 
-export default function PriceTable({ data }: Props) {
+export default function PriceTable({ data, onEdit, onDelete }: Props) {
   if (data.length === 0) {
     return <p className="text-gray-500">Tidak ada data harga.</p>;
   }
@@ -16,7 +18,8 @@ export default function PriceTable({ data }: Props) {
           <th className="border p-2">Nama</th>
           <th className="border p-2">Kategori</th>
           <th className="border p-2">Harga</th>
-          <th className="border p-2">Update</th>
+          <th className="border p-2">Terakhir Update</th>
+          <th className="border p-2">Aksi</th>
         </tr>
       </thead>
       <tbody>
@@ -27,6 +30,24 @@ export default function PriceTable({ data }: Props) {
             <td className="border p-2">{formatRupiah(item.harga)}</td>
             <td className="border p-2">
               {new Date(item.updatedAt).toLocaleDateString("id-ID")}
+            </td>
+            <td className="border p-2 space-x-2">
+              {onEdit && (
+                <button
+                  onClick={() => onEdit(item)}
+                  className="bg-yellow-500 text-white px-2 py-1 rounded"
+                >
+                  Edit
+                </button>
+              )}
+              {onDelete && (
+                <button
+                  onClick={() => onDelete(item.id)}
+                  className="bg-red-600 text-white px-2 py-1 rounded"
+                >
+                  Hapus
+                </button>
+              )}
             </td>
           </tr>
         ))}
