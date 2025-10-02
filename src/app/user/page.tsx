@@ -1,5 +1,5 @@
 "use client";
-import AuthGuard from "@/components/AuthGuard";
+
 import { useState } from "react";
 import { useHarga } from "@/lib/useHarga";
 import SearchBar from "@/components/SearchBar";
@@ -14,20 +14,16 @@ export default function UserPage() {
   );
 
   return (
-    <AuthGuard allow={["user"]}>
-      <main className="p-6 max-w-4xl mx-auto">
-        <h1 className="text-3xl font-bold mb-6 text-center">
-          Dashboard User - Daftar Harga
-        </h1>
+    <main className="min-h-screen p-6 bg-gradient-to-br from-gray-00 via-gray-800 to-black text-white">
+      <h1 className="text-3xl md:text-3xl lg:text-4xl font-bold mb-6 text-center">Harga Barang</h1>
 
-        <div className="bg-white p-4 rounded-lg shadow-md mb-6">
-          <SearchBar value={query} onChange={setQuery} />
-        </div>
+      <div className="bg-white p-6 rounded-lg shadow-md mb-6">
+        <SearchBar value={query} onChange={setQuery} />
+      </div>
 
-        <div className="bg-white p-4 rounded-lg shadow-md">
-          <PriceTable data={filtered} />
-        </div>
-      </main>
-    </AuthGuard>
+      <div className="bg-white p-6 rounded-lg shadow-md">
+        <PriceTable data={filtered} />
+      </div>
+    </main>
   );
 }

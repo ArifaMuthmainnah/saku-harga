@@ -23,10 +23,10 @@ export default function LoginPage() {
   };
 
   return (
-    <main className="flex items-center justify-center min-h-screen bg-gradient-to-br from-gray-900 via-blue-900 to-black">
+    <main className="flex items-center justify-center min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black">
       <div className="bg-white rounded-lg shadow-xl p-8 w-96">
         {/* Judul */}
-        <h1 className="text-3xl font-extrabold text-center mb-6 text-gray-900">
+        <h1 className="text-3xl md:text-3xl lg:text-4xl font-extrabold text-center mb-6 text-gray-900">
           LOGIN
         </h1>
 
