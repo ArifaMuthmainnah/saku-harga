@@ -72,3 +72,6 @@ npm run dev
 - Sistem login admin berbasis database.
 - Deployment skala penuh dengan Docker + CI/CD.
 
+## Docker Hub
+Image tersedia di Docker Hub:  
+👉 [nshadiqah/saku-harga:v1-UTS](https://hub.docker.com/r/nshadiqah/saku-harga)
