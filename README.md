@@ -65,3 +65,10 @@ Saku-Harga hadir sebagai solusi ringkas untuk **mencari harga bahan pokok** dan 
 npm install
 npm run dev
 # buka http://localhost:3000
+
+## Rencana Pengembangan
+- Integrasi API harga pangan nasional.
+- Filter harga berdasarkan wilayah.
+- Sistem login admin berbasis database.
+- Deployment skala penuh dengan Docker + CI/CD.
+
