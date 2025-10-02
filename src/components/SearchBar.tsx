@@ -10,7 +10,10 @@ export default function SearchBar({ value, onChange }: Props) {
       placeholder="Cari barang..."
       value={value}
       onChange={(e) => onChange(e.target.value)}
-      className="border rounded p-2 mb-4 w-full"
+      className="w-full p-3 rounded border border-gray-500 
+                text-black placeholder-gray-500
+                focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 
+                bg-white shadow-sm"
     />
   );
 }
