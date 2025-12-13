@@ -11,7 +11,7 @@ export default function AuthGuard({
   allow: Role[];
   children: React.ReactNode;
 }) {
-  const router = useRouter();
+  const router = useRouter(); 
 
   useEffect(() => {
     const role = localStorage.getItem("role");

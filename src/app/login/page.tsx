@@ -81,6 +81,16 @@ export default function LoginPage() {
           >
             {loading ? "Memeriksa..." : "Masuk"}
           </button>
+          <p className="text-center text-gray-600 mt-4">
+            Belum punya akun?{" "}
+            <button
+              type="button"
+              className="text-blue-600 font-semibold"
+              onClick={() => router.push("/register")}
+            >
+              Register
+            </button>
+          </p>
         </form>
       </div>
     </main>

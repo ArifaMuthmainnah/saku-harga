@@ -1,11 +1,10 @@
-// halaman atau page untuk user
-
 "use client";
 
 import { useState } from "react";
 import { useHarga } from "@/lib/useHarga";
 import SearchBar from "@/components/SearchBar";
 import PriceTable from "@/components/PriceTable";
+import AuthGuard from "@/components/AuthGuard";
 
 export default function UserPage() {
   const { hargaList } = useHarga();
@@ -16,16 +15,20 @@ export default function UserPage() {
   );
 
   return (
-    <main className="min-h-screen p-6 bg-gradient-to-br from-gray-00 via-gray-800 to-black text-white">
-      <h1 className="text-3xl md:text-3xl lg:text-4xl font-bold mb-6 text-center">Harga Barang</h1>
+    <AuthGuard allow={["user", "admin"]}>
+      <main className="min-h-screen p-6 bg-gradient-to-br from-gray-900 via-gray-800 to-black text-white">
+        <h1 className="text-3xl md:text-3xl lg:text-4xl font-bold mb-6 text-center">
+          Harga Barang
+        </h1>
 
-      <div className="bg-white p-6 rounded-lg shadow-md mb-6">
-        <SearchBar value={query} onChange={setQuery} />
-      </div>
+        <div className="bg-white p-6 rounded-lg shadow-md mb-6">
+          <SearchBar value={query} onChange={setQuery} />
+        </div>
 
-      <div className="bg-white p-6 rounded-lg shadow-md">
-        <PriceTable data={filtered} />
-      </div>
-    </main>
+        <div className="bg-white p-6 rounded-lg shadow-md">
+          <PriceTable data={filtered} />
+        </div>
+      </main>
+    </AuthGuard>
   );
 }
