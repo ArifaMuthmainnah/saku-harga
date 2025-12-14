@@ -1,11 +1,15 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
+
+export type Kategori = "pokok" | "sayur" | "protein" | "lainnya";
 
 export type ItemHarga = {
-  id: string;
+  id: number;          // ✅ DB int
   nama: string;
-  kategori: "pokok" | "sayur" | "protein" | "lainnya";
+  kategori: Kategori;  // ✅ ada kategori
   harga: number;
-  updatedAt: string;
+  satuan: string;      // ✅ DB field
+  wilayah: string;     // ✅ DB field
+  updatedAt: string;   // ✅ DateTime -> string
 };
 
 export function formatRupiah(angka: number): string {
@@ -16,53 +20,76 @@ export function formatRupiah(angka: number): string {
   }).format(angka);
 }
 
+type PayloadHarga = Omit<ItemHarga, "id" | "updatedAt">;
+
 export function useHarga() {
   const [hargaList, setHargaList] = useState<ItemHarga[]>([]);
+  const [loading, setLoading] = useState(false);
 
-  // Load data awal dari localStorage
-  useEffect(() => {
-  if (hargaList.length === 0) {
-    const saved = localStorage.getItem("hargaList");
-    if (saved) {
-      try {
-        setHargaList(JSON.parse(saved));
-      } catch (err) {
-        console.error("Parsing localStorage error:", err);
-      }
+  // ✅ GET semua data (atau nanti bisa pakai wilayah kalau mau)
+  const fetchHarga = async (wilayah?: string) => {
+    setLoading(true);
+    try {
+      const url = wilayah
+        ? `/api/harga?wilayah=${encodeURIComponent(wilayah)}`
+        : `/api/harga`;
+
+      const res = await fetch(url, { cache: "no-store" });
+      const data = await res.json();
+
+      if (!res.ok) throw new Error(data?.message || "Gagal mengambil data harga");
+
+      setHargaList(data);
+    } catch (err) {
+      console.error("fetchHarga error:", err);
+    } finally {
+      setLoading(false);
     }
-  }
-}, []); 
+  };
 
-  // Simpan otomatis ke localStorage tiap kali hargaList berubah
+  // load awal dari API
   useEffect(() => {
-    if (hargaList.length > 0) {
-      localStorage.setItem("hargaList", JSON.stringify(hargaList));
-    }
-  }, [hargaList]);
+    fetchHarga();
+  }, []);
 
-  // Tambah item
-  const tambahHarga = (item: Omit<ItemHarga, "id" | "updatedAt">) => {
-    const newItem: ItemHarga = {
-      ...item,
-      id: crypto.randomUUID(),
-      updatedAt: new Date().toLocaleDateString(),
-    };
-    setHargaList((prev) => [...prev, newItem]);
+  // ✅ POST tambah data
+  const tambahHarga = async (item: PayloadHarga) => {
+    const res = await fetch("/api/harga", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(item),
+    });
+
+    const data = await res.json();
+    if (!res.ok) throw new Error(data?.message || "Gagal menambah harga");
+
+    // cara aman: refresh
+    await fetchHarga();
   };
 
-  // Update item
-  const updateHarga = (id: string, item: Omit<ItemHarga, "id" | "updatedAt">) => {
-    setHargaList((prev) =>
-      prev.map((h) =>
-        h.id === id ? { ...h, ...item, updatedAt: new Date().toLocaleDateString() } : h
-      )
-    );
+  // ✅ PUT update data
+  const updateHarga = async (id: number, item: PayloadHarga) => {
+    const res = await fetch(`/api/harga/${id}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(item),
+    });
+
+    const data = await res.json();
+    if (!res.ok) throw new Error(data?.message || "Gagal mengupdate harga");
+
+    await fetchHarga();
   };
 
-  // Hapus item
-  const hapusHarga = (id: string) => {
-    setHargaList((prev) => prev.filter((h) => h.id !== id));
+  // ✅ DELETE hapus data
+  const hapusHarga = async (id: number) => {
+    const res = await fetch(`/api/harga/${id}`, { method: "DELETE" });
+
+    const data = await res.json();
+    if (!res.ok) throw new Error(data?.message || "Gagal menghapus harga");
+
+    await fetchHarga();
   };
 
-  return { hargaList, tambahHarga, updateHarga, hapusHarga };
+  return { hargaList, loading, fetchHarga, tambahHarga, updateHarga, hapusHarga };
 }
