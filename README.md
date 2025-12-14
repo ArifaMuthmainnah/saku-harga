@@ -28,7 +28,7 @@ Saku-Harga hadir sebagai solusi ringkas untuk **mencari harga bahan pokok** dan 
 
 ---
 
-## 👥 Target Pengguna
+## 👥 Target Pengguna:
 - **Masyarakat Indonesia (umum)**.
 - **Pelaku UMKM / pedagang kecil**.
 - **Admin internal (simulasi login)**.
