@@ -5,6 +5,7 @@ import { useHarga } from "@/lib/useHarga";
 import SearchBar from "@/components/SearchBar";
 import PriceTable from "@/components/PriceTable";
 import AuthGuard from "@/components/AuthGuard";
+import HargaHistogram from "@/components/HargaHistogram";
 
 const PROVINSI = [
   "Aceh",
@@ -59,24 +60,28 @@ export default function UserPage() {
     else fetchHarga(wilayah);
   }, [wilayah]);
 
-  // Filter search + kategori dilakukan di FE
+  // Filter search + kategori di frontend
   const filtered = hargaList
     .filter((item) =>
       item.nama.toLowerCase().includes(query.toLowerCase())
     )
-    .filter((item) => (kategori === "Semua" ? true : item.kategori === kategori));
+    .filter((item) =>
+      kategori === "Semua" ? true : item.kategori === kategori
+    );
 
   return (
     <AuthGuard allow={["user", "admin"]}>
       <main className="min-h-screen p-6 bg-gradient-to-br from-gray-900 via-gray-800 to-black text-white">
-        <h1 className="text-3xl md:text-3xl lg:text-4xl font-bold mb-6 text-center">
+        <h1 className="text-3xl md:text-4xl font-bold mb-6 text-center">
           Harga Barang
         </h1>
 
+        {/* FILTER */}
         <div className="bg-white p-6 rounded-lg shadow-md mb-6 text-black space-y-4">
-          {/* Dropdown Wilayah */}
           <div>
-            <label className="block mb-2 font-semibold">Filter Wilayah</label>
+            <label className="block mb-2 font-semibold">
+              Filter Wilayah
+            </label>
             <select
               value={wilayah}
               onChange={(e) => setWilayah(e.target.value)}
@@ -91,9 +96,10 @@ export default function UserPage() {
             </select>
           </div>
 
-          {/* Dropdown Kategori */}
           <div>
-            <label className="block mb-2 font-semibold">Filter Kategori</label>
+            <label className="block mb-2 font-semibold">
+              Filter Kategori
+            </label>
             <select
               value={kategori}
               onChange={(e) => setKategori(e.target.value)}
@@ -107,12 +113,33 @@ export default function UserPage() {
             </select>
           </div>
 
-          {/* Search */}
           <SearchBar value={query} onChange={setQuery} />
         </div>
 
+        {/* HISTOGRAM */}
+        <div className="bg-white p-6 rounded-lg shadow-md text-black mb-6">
+          <h2 className="text-xl font-bold mb-4 text-center">
+            Histogram Harga Pangan
+          </h2>
+
+          {loading ? (
+            <p>Loading chart...</p>
+          ) : (
+            <HargaHistogram
+              data={filtered}
+              wilayah={wilayah}
+              kategori={kategori}
+            />
+          )}
+        </div>
+
+        {/* TABLE */}
         <div className="bg-white p-6 rounded-lg shadow-md text-black">
-          {loading ? <p>Loading...</p> : <PriceTable data={filtered} />}
+          {loading ? (
+            <p>Loading...</p>
+          ) : (
+            <PriceTable data={filtered} />
+          )}
         </div>
       </main>
     </AuthGuard>
