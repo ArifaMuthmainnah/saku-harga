@@ -16,13 +16,6 @@ model User {
   createdAt DateTime @default(now())
 }
 
-enum Kategori {
-  pokok
-  sayur
-  protein
-  lainnya
-}
-
 model Harga {
   id        Int      @id @default(autoincrement())
   nama      String
@@ -31,4 +24,17 @@ model Harga {
   satuan    String
   wilayah   String
   updatedAt DateTime @updatedAt
+}
+
+model playing_with_neon {
+  id    Int    @id @default(autoincrement())
+  name  String
+  value Float? @db.Real
+}
+
+enum Kategori {
+  pokok
+  sayur
+  protein
+  lainnya
 }
