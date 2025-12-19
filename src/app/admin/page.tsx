@@ -21,6 +21,13 @@ const PROVINSI = [
   "Papua Selatan","Papua Tengah","Papua Pegunungan",
 ];
 
+/* ===== SCROLL ===== */
+const scrollTo = (id: string) => {
+  document.getElementById(id)?.scrollIntoView({
+    behavior: "smooth",
+  });
+};
+
 export default function AdminPage() {
   const {
     hargaList,
@@ -36,110 +43,188 @@ export default function AdminPage() {
   const [wilayah, setWilayah] = useState("Semua");
   const [kategori, setKategori] = useState("Semua");
 
-  // Fetch data berdasarkan wilayah (sama seperti user)
+  /* ===== TAMBAHAN ===== */
+  const [activeSection, setActiveSection] = useState("");
+
   useEffect(() => {
-    if (wilayah === "Semua") fetchHarga();
-    else fetchHarga(wilayah);
+    wilayah === "Semua" ? fetchHarga() : fetchHarga(wilayah);
   }, [wilayah]);
 
-  // Filter di frontend
+  /* ===== DETEKSI SECTION AKTIF ===== */
+  useEffect(() => {
+    const sections = document.querySelectorAll("section[id]");
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            setActiveSection(e.target.id);
+          }
+        });
+      },
+      { rootMargin: "-40% 0px -50% 0px" }
+    );
+
+    sections.forEach((s) => observer.observe(s));
+    return () => observer.disconnect();
+  }, []);
+
   const filtered = hargaList
-    .filter((item) =>
-      item.nama.toLowerCase().includes(query.toLowerCase())
-    )
+    .filter((item) => item.nama.toLowerCase().includes(query.toLowerCase()))
     .filter((item) =>
       kategori === "Semua" ? true : item.kategori === kategori
     );
 
   return (
     <AuthGuard allow={["admin"]}>
-      <main className="min-h-screen p-6 bg-gradient-to-br from-gray-900 via-gray-800 to-black text-white">
-        <h1 className="text-3xl font-bold mb-6 text-center">
-          Dashboard Admin – Kelola Harga Pangan
-        </h1>
+      <main className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black text-white">
+        <div className="max-w-7xl mx-auto px-6 py-6 flex gap-6">
 
-        {/* FORM INPUT */}
-        <div className="bg-white p-6 rounded-lg shadow-md mb-6 text-black">
-          <PriceForm
-            onSubmit={(data) => {
-              if (editing) {
-                updateHarga(editing.id, data);
-                setEditing(null);
-              } else {
-                tambahHarga(data);
-              }
-            }}
-            initialData={editing || undefined}
-          />
-        </div>
+          {/* ================= SIDEBAR ================= */}
+          <aside className="w-56 hidden md:block">
+            <div className="sticky top-24 bg-slate-900/90 backdrop-blur border border-slate-700 rounded-xl p-3 text-sm space-y-1">
+              <p className="text-gray-400 text-xs mb-2">NAVIGASI</p>
 
-        {/* FILTER & SEARCH */}
-        <div className="bg-white p-6 rounded-lg shadow-md mb-6 text-black space-y-4">
-          <div>
-            <label className="block mb-2 font-semibold">Filter Wilayah</label>
-            <select
-              value={wilayah}
-              onChange={(e) => setWilayah(e.target.value)}
-              className="border px-3 py-2 rounded w-full"
+              <button
+                onClick={() => scrollTo("form")}
+                className={`sidebar-btn ${activeSection==="form" && "sidebar-active"}`}
+              >
+                Input Harga
+              </button>
+
+              <button
+                onClick={() => scrollTo("filter")}
+                className={`sidebar-btn ${activeSection==="filter" && "sidebar-active"}`}
+              >
+                Filter
+              </button>
+
+              <button
+                onClick={() => scrollTo("insight")}
+                className={`sidebar-btn ${activeSection==="insight" && "sidebar-active"}`}
+              >
+                Insight
+              </button>
+
+              <button
+                onClick={() => scrollTo("histogram")}
+                className={`sidebar-btn ${activeSection==="histogram" && "sidebar-active"}`}
+              >
+                Histogram
+              </button>
+
+              <button
+                onClick={() => scrollTo("table")}
+                className={`sidebar-btn ${activeSection==="table" && "sidebar-active"}`}
+              >
+                Tabel Data
+              </button>
+            </div>
+          </aside>
+
+          {/* ================= CONTENT ================= */}
+          <section className="flex-1 space-y-6">
+            <h1 className="text-3xl font-bold text-center">
+              Dashboard Admin – Kelola Harga Pangan
+            </h1>
+
+            <section
+              id="form"
+              className="section-anchor bg-white p-6 rounded-lg shadow-md text-black"
             >
-              <option value="Semua">Semua Provinsi</option>
-              {PROVINSI.map((p) => (
-                <option key={p} value={p}>{p}</option>
-              ))}
-            </select>
-          </div>
+              <PriceForm
+                onSubmit={(data) => {
+                  if (editing) {
+                    updateHarga(editing.id, data);
+                    setEditing(null);
+                  } else {
+                    tambahHarga(data);
+                  }
+                }}
+                initialData={editing || undefined}
+              />
+            </section>
 
-          <div>
-            <label className="block mb-2 font-semibold">Filter Kategori</label>
-            <select
-              value={kategori}
-              onChange={(e) => setKategori(e.target.value)}
-              className="border px-3 py-2 rounded w-full"
+            <section
+              id="filter"
+              className="section-anchor bg-white p-6 rounded-lg shadow-md text-black space-y-4"
             >
-              <option value="Semua">Semua Kategori</option>
-              <option value="pokok">Pokok</option>
-              <option value="sayur">Sayur</option>
-              <option value="protein">Protein</option>
-              <option value="lainnya">Lainnya</option>
-            </select>
-          </div>
+              <div>
+                <label className="block mb-2 font-semibold">
+                  Filter Wilayah
+                </label>
+                <select
+                  value={wilayah}
+                  onChange={(e) => setWilayah(e.target.value)}
+                  className="border px-3 py-2 rounded w-full"
+                >
+                  <option value="Semua">Semua Provinsi</option>
+                  {PROVINSI.map((p) => (
+                    <option key={p} value={p}>{p}</option>
+                  ))}
+                </select>
+              </div>
 
-          <SearchBar value={query} onChange={setQuery} />
-        </div>
+              <div>
+                <label className="block mb-2 font-semibold">
+                  Filter Kategori
+                </label>
+                <select
+                  value={kategori}
+                  onChange={(e) => setKategori(e.target.value)}
+                  className="border px-3 py-2 rounded w-full"
+                >
+                  <option value="Semua">Semua Kategori</option>
+                  <option value="pokok">Pokok</option>
+                  <option value="sayur">Sayur</option>
+                  <option value="protein">Protein</option>
+                  <option value="lainnya">Lainnya</option>
+                </select>
+              </div>
 
-        {/* INSIGHT OTOMATIS */}
-        <div className="bg-white p-6 rounded-lg shadow-md mb-6 text-black">
-          <HargaInsight data={filtered} />
-        </div>
+              <SearchBar value={query} onChange={setQuery} />
+            </section>
 
-        {/* HISTOGRAM */}
-        <div className="bg-white p-6 rounded-lg shadow-md mb-6 text-black">
-          <h2 className="text-xl font-bold mb-4 text-center">
-            Histogram Harga Pangan
-          </h2>
+            <section
+              id="insight"
+              className="section-anchor bg-white p-6 rounded-lg shadow-md text-black"
+            >
+              <HargaInsight data={filtered} />
+            </section>
 
-          {loading ? (
-            <p>Loading chart...</p>
-          ) : (
-            <HargaHistogram
-              data={filtered}
-              wilayah={wilayah}
-              kategori={kategori}
-            />
-          )}
-        </div>
+            <section
+              id="histogram"
+              className="section-anchor bg-white p-6 rounded-lg shadow-md text-black"
+            >
+              <h2 className="text-xl font-bold mb-4 text-center">
+                Histogram Harga Pangan
+              </h2>
+              {loading ? (
+                <p>Loading chart...</p>
+              ) : (
+                <HargaHistogram
+                  data={filtered}
+                  wilayah={wilayah}
+                  kategori={kategori}
+                />
+              )}
+            </section>
 
-        {/* TABLE */}
-        <div className="bg-white p-6 rounded-lg shadow-md text-black">
-          {loading ? (
-            <p>Loading...</p>
-          ) : (
-            <PriceTable
-              data={filtered}
-              onEdit={(item) => setEditing(item)}
-              onDelete={(id) => hapusHarga(id)}
-            />
-          )}
+            <section
+              id="table"
+              className="section-anchor bg-white p-6 rounded-lg shadow-md text-black"
+            >
+              {loading ? (
+                <p>Loading...</p>
+              ) : (
+                <PriceTable
+                  data={filtered}
+                  onEdit={(item) => setEditing(item)}
+                  onDelete={(id) => hapusHarga(id)}
+                />
+              )}
+            </section>
+          </section>
+
         </div>
       </main>
     </AuthGuard>

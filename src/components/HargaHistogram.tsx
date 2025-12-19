@@ -153,7 +153,11 @@ export default function HargaHistogram({
             <Tooltip formatter={(v: number) => formatRupiah(v)} />
             {isStacked ? (
               <>
-                <Legend />
+                <Legend
+                  verticalAlign="top"
+                  align="center"
+                  wrapperStyle={{ paddingBottom: 20 }}
+                />
                 <Bar dataKey="pokok" stackId="a" fill={COLOR_MAP.pokok} />
                 <Bar dataKey="sayur" stackId="a" fill={COLOR_MAP.sayur} />
                 <Bar dataKey="protein" stackId="a" fill={COLOR_MAP.protein} />

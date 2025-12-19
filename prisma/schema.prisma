@@ -19,11 +19,11 @@ model User {
 model Harga {
   id        Int      @id @default(autoincrement())
   nama      String
-  kategori  Kategori @default(pokok)
   harga     Int
   satuan    String
   wilayah   String
   updatedAt DateTime @updatedAt
+  kategori  Kategori @default(pokok)
 }
 
 model playing_with_neon {

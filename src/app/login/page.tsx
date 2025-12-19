@@ -2,6 +2,9 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { LogIn } from "lucide-react";
+import toast from "react-hot-toast";
+import { motion } from "framer-motion";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -14,37 +17,31 @@ export default function LoginPage() {
     setLoading(true);
 
     try {
-      // 1. Kirim request ke API login backend
       const res = await fetch("/api/login", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username, password }),
       });
 
       const data = await res.json();
 
-      // 2. Kalau gagal
       if (!res.ok) {
-        alert(data.message || "Login gagal!");
-        setLoading(false);
+        toast.error(data.message || "Login gagal!");
         return;
       }
 
-      // 3. Kalau berhasil → simpan role dan redirect
+      toast.success("Login berhasil 🎉");
+
       localStorage.setItem("role", data.role);
       localStorage.setItem("username", data.username);
 
-      if (data.role === "admin") {
-        router.push("/admin");
-      } else {
-        router.push("/user");
-      }
+      // 🔑 INI KUNCINYA
+      window.dispatchEvent(new Event("auth-change"));
 
-    } catch (err) {
-      console.error("Login error:", err);
-      alert("Terjadi kesalahan server.");
+      router.push(data.role === "admin" ? "/admin" : "/user");
+    } catch (error) {
+      console.error(error);
+      toast.error("Terjadi kesalahan server");
     } finally {
       setLoading(false);
     }
@@ -52,47 +49,61 @@ export default function LoginPage() {
 
   return (
     <main className="flex items-center justify-center min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black">
-      <div className="bg-white rounded-lg shadow-xl p-8 w-96">
-
-        <h1 className="text-3xl md:text-3xl lg:text-4xl font-extrabold text-center mb-6 text-gray-900">
-          LOGIN
-        </h1>
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="bg-white rounded-2xl shadow-2xl p-8 w-96"
+      >
+        <div className="flex flex-col items-center mb-6">
+          <div className="bg-blue-600 w-12 h-12 rounded-full flex items-center justify-center mb-3">
+            <LogIn className="text-white" />
+          </div>
+          <h1 className="text-2xl font-extrabold text-gray-900">
+            Login Akun
+          </h1>
+          <p className="text-sm text-gray-500">
+            Masuk ke dashboard Saku-Harga
+          </p>
+        </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <input
-            type="text"
+            className="w-full px-4 py-2 border rounded-lg text-gray-900 focus:ring-2 focus:ring-blue-500 focus:outline-none"
             placeholder="Username"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
-            className="w-full border rounded px-3 py-2 focus:ring-2 focus:ring-blue-500"
+            required
           />
 
           <input
             type="password"
+            className="w-full px-4 py-2 border rounded-lg text-gray-900 focus:ring-2 focus:ring-blue-500 focus:outline-none"
             placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="w-full border rounded px-3 py-2 focus:ring-2 focus:ring-blue-500"
+            required
           />
 
           <button
-            type="submit"
-            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 rounded transition"
+            disabled={loading}
+            className="w-full bg-blue-600 hover:bg-blue-700 disabled:opacity-60 text-white font-bold py-2 rounded-lg transition"
           >
             {loading ? "Memeriksa..." : "Masuk"}
           </button>
-          <p className="text-center text-gray-600 mt-4">
-            Belum punya akun?{" "}
-            <button
-              type="button"
-              className="text-blue-600 font-semibold"
-              onClick={() => router.push("/register")}
-            >
-              Register
-            </button>
-          </p>
         </form>
-      </div>
+
+        <p className="text-center text-sm text-gray-600 mt-4">
+          Belum punya akun?{" "}
+          <button
+            type="button"
+            onClick={() => router.push("/register")}
+            className="text-blue-600 font-semibold hover:underline"
+          >
+            Register
+          </button>
+        </p>
+      </motion.div>
     </main>
   );
 }
