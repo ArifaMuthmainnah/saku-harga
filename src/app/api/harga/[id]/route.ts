@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { Kategori } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
 import { log } from "@/lib/logger";
@@ -7,10 +7,11 @@ import { log } from "@/lib/logger";
    PUT /api/harga/:id
 ======================= */
 export async function PUT(
-  req: Request,
-  { params }: { params: { id: string } }
+  req: NextRequest,
+  context: { params: { id: string } } // gunakan context, jangan destructure langsung
 ) {
   try {
+    const { id } = context.params; // ambil id dari context.params
     const body = await req.json();
     const { nama, kategori, harga, satuan, wilayah } = body;
 
@@ -29,7 +30,7 @@ export async function PUT(
     }
 
     const updated = await prisma.harga.update({
-      where: { id: Number(params.id) },
+      where: { id: Number(id) },
       data: {
         nama,
         kategori,
@@ -39,17 +40,11 @@ export async function PUT(
       },
     });
 
-    log("info", "Harga berhasil diupdate", {
-      id: params.id,
-      nama,
-    });
+    log("info", "Harga berhasil diupdate", { id, nama });
 
     return NextResponse.json(updated, { status: 200 });
   } catch (error: any) {
-    log("error", "PUT /api/harga/:id gagal", {
-      error: error.message,
-    });
-
+    log("error", "PUT /api/harga/:id gagal", { error: error.message });
     return NextResponse.json(
       { message: "Gagal mengupdate harga" },
       { status: 500 }
@@ -61,25 +56,22 @@ export async function PUT(
    DELETE /api/harga/:id
 ======================= */
 export async function DELETE(
-  req: Request,
-  { params }: { params: { id: string } }
+  req: NextRequest,
+  context: { params: { id: string } }
 ) {
   try {
-    await prisma.harga.delete({
-      where: { id: Number(params.id) },
-    });
+    const { id } = context.params;
 
-    log("info", "Harga berhasil dihapus", { id: params.id });
+    await prisma.harga.delete({ where: { id: Number(id) } });
+
+    log("info", "Harga berhasil dihapus", { id });
 
     return NextResponse.json(
       { message: "Data berhasil dihapus" },
       { status: 200 }
     );
   } catch (error: any) {
-    log("error", "DELETE /api/harga/:id gagal", {
-      error: error.message,
-    });
-
+    log("error", "DELETE /api/harga/:id gagal", { error: error.message });
     return NextResponse.json(
       { message: "Gagal menghapus data" },
       { status: 500 }

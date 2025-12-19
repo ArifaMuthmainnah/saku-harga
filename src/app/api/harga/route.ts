@@ -1,9 +1,9 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { Kategori } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
 import { log } from "@/lib/logger";
 
-export async function GET(req: Request) {
+export async function GET(req: NextRequest) {
   try {
     const { searchParams } = new URL(req.url);
     const wilayah = searchParams.get("wilayah");
@@ -28,7 +28,7 @@ export async function GET(req: Request) {
   }
 }
 
-export async function POST(req: Request) {
+export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
     const { nama, kategori, harga, satuan, wilayah } = body;

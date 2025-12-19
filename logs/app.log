@@ -16,3 +16,9 @@
 {"timestamp":"2025-12-19T21:59:22.775Z","level":"info","message":"GET /api/harga","wilayah":null}
 {"timestamp":"2025-12-19T22:34:22.881Z","level":"info","message":"GET /api/harga","wilayah":null}
 {"timestamp":"2025-12-19T22:34:27.511Z","level":"info","message":"GET /api/harga","wilayah":null}
+{"timestamp":"2025-12-19T23:42:03.324Z","level":"info","message":"POST /api/harga success","id":226,"nama":"tes","wilayah":"Aceh","kategori":"pokok"}
+{"timestamp":"2025-12-19T23:42:03.436Z","level":"info","message":"GET /api/harga","wilayah":null}
+{"timestamp":"2025-12-19T23:42:35.636Z","level":"info","message":"Harga berhasil diupdate","id":"226","nama":"tes"}
+{"timestamp":"2025-12-19T23:42:35.698Z","level":"info","message":"GET /api/harga","wilayah":null}
+{"timestamp":"2025-12-19T23:42:44.859Z","level":"info","message":"Harga berhasil dihapus","id":"226"}
+{"timestamp":"2025-12-19T23:42:44.929Z","level":"info","message":"GET /api/harga","wilayah":null}
