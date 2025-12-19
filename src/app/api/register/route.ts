@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcryptjs";
+import { log } from "@/lib/logger";
 
 const prisma = new PrismaClient();
 
@@ -9,8 +10,8 @@ export async function POST(req: Request) {
     const body = await req.json();
     const { username, password } = body;
 
-    // 1) Validasi input
     if (!username || !password) {
+      log("warn", "Register validation failed", { username });
       return NextResponse.json(
         { message: "Username dan password wajib diisi" },
         { status: 400 }
@@ -18,28 +19,27 @@ export async function POST(req: Request) {
     }
 
     if (password.length < 6) {
+      log("warn", "Register failed: password too short", { username });
       return NextResponse.json(
         { message: "Password minimal 6 karakter" },
         { status: 400 }
       );
     }
 
-    // 2) Cek username sudah ada belum
     const existing = await prisma.user.findUnique({
       where: { username },
     });
 
     if (existing) {
+      log("warn", "Register failed: username exists", { username });
       return NextResponse.json(
         { message: "Username sudah dipakai" },
         { status: 409 }
       );
     }
 
-    // 3) Hash password
     const hash = await bcrypt.hash(password, 10);
 
-    // 4) Simpan user baru (role = user)
     const user = await prisma.user.create({
       data: {
         username,
@@ -53,12 +53,14 @@ export async function POST(req: Request) {
       },
     });
 
+    log("info", "Register success", { username });
+
     return NextResponse.json(
       { message: "Register berhasil", user },
       { status: 201 }
     );
-  } catch (err) {
-    console.error("Register error:", err);
+  } catch (err: any) {
+    log("error", "Register error", { error: err?.message });
     return NextResponse.json(
       { message: "Terjadi kesalahan server saat register" },
       { status: 500 }

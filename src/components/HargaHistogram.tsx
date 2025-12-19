@@ -86,10 +86,31 @@ export default function HargaHistogram({
     const el = document.getElementById("histogram");
     if (!el) return;
 
-    const canvas = await html2canvas(el);
+    const canvas = await html2canvas(el, {
+      backgroundColor: "#ffffff",
+      scale: 2,
+      useCORS: true,
+      onclone: (doc) => {
+        // Paksa semua warna jadi RGB (hindari oklch)
+        const all = doc.querySelectorAll("*");
+        all.forEach((el: any) => {
+          const style = window.getComputedStyle(el);
+          if (style.color?.includes("oklch")) {
+            el.style.color = "rgb(0,0,0)";
+          }
+          if (style.backgroundColor?.includes("oklch")) {
+            el.style.backgroundColor = "rgb(255,255,255)";
+          }
+          if (style.borderColor?.includes("oklch")) {
+            el.style.borderColor = "rgb(0,0,0)";
+          }
+        });
+      },
+    });
+
     const link = document.createElement("a");
     link.download = "histogram-harga.png";
-    link.href = canvas.toDataURL();
+    link.href = canvas.toDataURL("image/png");
     link.click();
   };
 
