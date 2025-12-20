@@ -8,7 +8,7 @@ import { log } from "@/lib/logger";
 ======================= */
 export async function PUT(
   req: NextRequest,
-  context: { params: Record<string, string> }
+  context: { params: { id: string } | undefined } // fix Next.js 15
 ) {
   try {
     const id = context.params?.id;
@@ -61,7 +61,7 @@ export async function PUT(
 ======================= */
 export async function DELETE(
   req: NextRequest,
-  context: { params: Record<string, string> }
+  context: { params: { id: string } | undefined } // fix Next.js 15
 ) {
   try {
     const id = context.params?.id;
