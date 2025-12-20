@@ -1,12 +1,18 @@
+// lib/prisma.ts
 import { PrismaClient } from "@prisma/client";
 
-const globalForPrisma = globalThis as unknown as { prisma: PrismaClient | undefined };
+// Gunakan globalThis untuk mencegah multiple instance di dev
+declare global {
+  // TypeScript global declaration
+  var prisma: PrismaClient | undefined;
+}
 
+// Gunakan singleton
 export const prisma =
-  globalForPrisma.prisma ??
+  globalThis.prisma ??
   new PrismaClient({
-    // optional: log di dev
-    // log: ["query", "error", "warn"],
+    log: process.env.NODE_ENV === "development" ? ["query", "warn", "error"] : [],
   });
 
-if (process.env.NODE_ENV !== "production") globalForPrisma.prisma = prisma;
+// Simpan ke global untuk development
+if (process.env.NODE_ENV !== "production") globalThis.prisma = prisma;
