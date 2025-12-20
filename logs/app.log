@@ -59,3 +59,13 @@
 {"timestamp":"2025-12-20T11:57:59.731Z","level":"info","message":"GET /api/harga","wilayah":null}
 {"timestamp":"2025-12-20T11:58:05.970Z","level":"info","message":"Harga berhasil dihapus","id":"229"}
 {"timestamp":"2025-12-20T11:58:06.034Z","level":"info","message":"GET /api/harga","wilayah":null}
+{"timestamp":"2025-12-20T12:21:12.621Z","level":"info","message":"GET /api/harga","wilayah":null}
+{"timestamp":"2025-12-20T12:21:12.623Z","level":"info","message":"GET /api/harga","wilayah":null}
+{"timestamp":"2025-12-20T12:21:12.624Z","level":"info","message":"GET /api/harga","wilayah":null}
+{"timestamp":"2025-12-20T12:21:12.625Z","level":"info","message":"GET /api/harga","wilayah":null}
+{"timestamp":"2025-12-20T12:21:21.115Z","level":"info","message":"POST /api/harga success","id":230,"nama":"tes","wilayah":"Aceh","kategori":"pokok"}
+{"timestamp":"2025-12-20T12:21:21.244Z","level":"info","message":"GET /api/harga","wilayah":null}
+{"timestamp":"2025-12-20T12:21:42.698Z","level":"info","message":"Harga berhasil diupdate","id":"230","nama":"tes"}
+{"timestamp":"2025-12-20T12:21:42.748Z","level":"info","message":"GET /api/harga","wilayah":null}
+{"timestamp":"2025-12-20T12:21:50.124Z","level":"info","message":"Harga berhasil dihapus","id":"230"}
+{"timestamp":"2025-12-20T12:21:50.154Z","level":"info","message":"GET /api/harga","wilayah":null}
