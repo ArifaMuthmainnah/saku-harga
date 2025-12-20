@@ -42,3 +42,20 @@
 {"timestamp":"2025-12-20T10:35:27.206Z","level":"info","message":"GET /api/harga","wilayah":null}
 {"timestamp":"2025-12-20T10:35:47.186Z","level":"info","message":"Harga berhasil dihapus","id":"227"}
 {"timestamp":"2025-12-20T10:35:47.282Z","level":"info","message":"GET /api/harga","wilayah":null}
+{"timestamp":"2025-12-20T11:38:59.498Z","level":"info","message":"GET /api/harga","wilayah":null}
+{"timestamp":"2025-12-20T11:38:59.502Z","level":"info","message":"GET /api/harga","wilayah":null}
+{"timestamp":"2025-12-20T11:38:59.504Z","level":"info","message":"GET /api/harga","wilayah":null}
+{"timestamp":"2025-12-20T11:38:59.506Z","level":"info","message":"GET /api/harga","wilayah":null}
+{"timestamp":"2025-12-20T11:39:50.156Z","level":"info","message":"POST /api/harga success","id":228,"nama":"tes","wilayah":"Aceh","kategori":"pokok"}
+{"timestamp":"2025-12-20T11:39:50.223Z","level":"info","message":"GET /api/harga","wilayah":null}
+{"timestamp":"2025-12-20T11:40:58.626Z","level":"error","message":"PUT /api/harga/:id gagal","error":"\nInvalid `prisma.harga.update()` invocation:\n\n\nServer has closed the connection."}
+{"timestamp":"2025-12-20T11:41:03.245Z","level":"info","message":"Harga berhasil diupdate","id":"228","nama":"tes"}
+{"timestamp":"2025-12-20T11:41:03.306Z","level":"info","message":"GET /api/harga","wilayah":null}
+{"timestamp":"2025-12-20T11:41:10.495Z","level":"info","message":"Harga berhasil dihapus","id":"228"}
+{"timestamp":"2025-12-20T11:41:10.538Z","level":"info","message":"GET /api/harga","wilayah":null}
+{"timestamp":"2025-12-20T11:57:46.270Z","level":"info","message":"POST /api/harga success","id":229,"nama":"tes","wilayah":"Aceh","kategori":"pokok"}
+{"timestamp":"2025-12-20T11:57:46.331Z","level":"info","message":"GET /api/harga","wilayah":null}
+{"timestamp":"2025-12-20T11:57:59.664Z","level":"info","message":"Harga berhasil diupdate","id":"229","nama":"tes"}
+{"timestamp":"2025-12-20T11:57:59.731Z","level":"info","message":"GET /api/harga","wilayah":null}
+{"timestamp":"2025-12-20T11:58:05.970Z","level":"info","message":"Harga berhasil dihapus","id":"229"}
+{"timestamp":"2025-12-20T11:58:06.034Z","level":"info","message":"GET /api/harga","wilayah":null}
