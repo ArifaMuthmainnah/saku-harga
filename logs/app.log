@@ -69,3 +69,35 @@
 {"timestamp":"2025-12-20T12:21:42.748Z","level":"info","message":"GET /api/harga","wilayah":null}
 {"timestamp":"2025-12-20T12:21:50.124Z","level":"info","message":"Harga berhasil dihapus","id":"230"}
 {"timestamp":"2025-12-20T12:21:50.154Z","level":"info","message":"GET /api/harga","wilayah":null}
+{"timestamp":"2025-12-20T12:49:13.939Z","level":"info","message":"GET /api/harga","wilayah":null}
+{"timestamp":"2025-12-20T12:49:13.940Z","level":"info","message":"GET /api/harga","wilayah":null}
+{"timestamp":"2025-12-20T12:49:13.941Z","level":"info","message":"GET /api/harga","wilayah":null}
+{"timestamp":"2025-12-20T12:49:13.942Z","level":"info","message":"GET /api/harga","wilayah":null}
+{"timestamp":"2025-12-20T12:50:53.237Z","level":"info","message":"GET /api/harga","wilayah":null}
+{"timestamp":"2025-12-20T12:50:53.239Z","level":"info","message":"GET /api/harga","wilayah":null}
+{"timestamp":"2025-12-20T12:51:05.302Z","level":"info","message":"POST /api/harga success","id":231,"nama":"tes","wilayah":"Aceh","kategori":"pokok"}
+{"timestamp":"2025-12-20T12:51:05.368Z","level":"info","message":"GET /api/harga","wilayah":null}
+{"timestamp":"2025-12-20T12:51:21.929Z","level":"info","message":"Harga berhasil diupdate","id":"231","nama":"tes"}
+{"timestamp":"2025-12-20T12:51:21.994Z","level":"info","message":"GET /api/harga","wilayah":null}
+{"timestamp":"2025-12-20T12:51:29.682Z","level":"info","message":"Harga berhasil dihapus","id":"231"}
+{"timestamp":"2025-12-20T12:51:29.723Z","level":"info","message":"GET /api/harga","wilayah":null}
+{"timestamp":"2025-12-20T12:53:23.814Z","level":"info","message":"GET /api/harga","wilayah":null}
+{"timestamp":"2025-12-20T12:53:23.830Z","level":"info","message":"GET /api/harga","wilayah":null}
+{"timestamp":"2025-12-20T12:53:39.169Z","level":"info","message":"POST /api/harga success","id":232,"nama":"tes","wilayah":"Aceh","kategori":"pokok"}
+{"timestamp":"2025-12-20T12:53:39.205Z","level":"info","message":"GET /api/harga","wilayah":null}
+{"timestamp":"2025-12-20T12:53:54.295Z","level":"info","message":"Harga berhasil diupdate","id":"232","nama":"tes"}
+{"timestamp":"2025-12-20T12:53:54.337Z","level":"info","message":"GET /api/harga","wilayah":null}
+{"timestamp":"2025-12-20T12:54:03.241Z","level":"info","message":"Harga berhasil dihapus","id":"232"}
+{"timestamp":"2025-12-20T12:54:03.271Z","level":"info","message":"GET /api/harga","wilayah":null}
+{"timestamp":"2025-12-20T12:54:23.938Z","level":"info","message":"Login success","username":"admin","role":"admin"}
+{"timestamp":"2025-12-20T12:54:24.363Z","level":"info","message":"GET /api/harga","wilayah":null}
+{"timestamp":"2025-12-20T12:54:24.383Z","level":"info","message":"GET /api/harga","wilayah":null}
+{"timestamp":"2025-12-20T12:54:24.383Z","level":"info","message":"GET /api/harga","wilayah":null}
+{"timestamp":"2025-12-20T12:54:24.384Z","level":"info","message":"GET /api/harga","wilayah":null}
+{"timestamp":"2025-12-20T12:59:26.189Z","level":"info","message":"POST /api/harga success","id":233,"nama":"tes","wilayah":"Aceh","kategori":"pokok"}
+{"timestamp":"2025-12-20T12:59:26.222Z","level":"info","message":"GET /api/harga","wilayah":null}
+{"timestamp":"2025-12-20T12:59:47.347Z","level":"info","message":"Harga berhasil diupdate","id":"233","nama":"tes"}
+{"timestamp":"2025-12-20T12:59:47.417Z","level":"info","message":"GET /api/harga","wilayah":null}
+{"timestamp":"2025-12-20T13:00:03.041Z","level":"info","message":"Harga berhasil dihapus","id":"233"}
+{"timestamp":"2025-12-20T13:00:03.071Z","level":"info","message":"GET /api/harga","wilayah":null}
+{"timestamp":"2025-12-20T13:00:07.264Z","level":"error","message":"DELETE /api/harga/:id gagal","error":"\nInvalid `prisma.harga.delete()` invocation:\n\n\nAn operation failed because it depends on one or more records that were required but not found. Record to delete does not exist."}

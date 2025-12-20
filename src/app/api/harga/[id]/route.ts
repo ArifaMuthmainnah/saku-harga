@@ -1,10 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 import { Kategori } from "@prisma/client";
-import { prisma } from "@/lib/prisma";
 import { log } from "@/lib/logger";
 
 /* =======================
    PUT /api/harga/:id
+   Prisma di-init di dalam function
 ======================= */
 export async function PUT(req: NextRequest, context: any) {
   try {
@@ -30,6 +30,10 @@ export async function PUT(req: NextRequest, context: any) {
       );
     }
 
+    // Prisma di-init di dalam function supaya aman di Vercel
+    const { PrismaClient } = await import("@prisma/client");
+    const prisma = new PrismaClient();
+
     const updated = await prisma.harga.update({
       where: { id: Number(id) },
       data: {
@@ -40,6 +44,8 @@ export async function PUT(req: NextRequest, context: any) {
         wilayah,
       },
     });
+
+    await prisma.$disconnect();
 
     log("info", "Harga berhasil diupdate", { id, nama });
 
@@ -63,7 +69,11 @@ export async function DELETE(req: NextRequest, context: any) {
       return NextResponse.json({ message: "ID tidak ditemukan" }, { status: 400 });
     }
 
+    const { PrismaClient } = await import("@prisma/client");
+    const prisma = new PrismaClient();
+
     await prisma.harga.delete({ where: { id: Number(id) } });
+    await prisma.$disconnect();
 
     log("info", "Harga berhasil dihapus", { id });
 
