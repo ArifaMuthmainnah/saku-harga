@@ -1,12 +1,4 @@
-import fs from "fs";
-import path from "path";
-
-const logDir = path.join(process.cwd(), "logs");
-const logFile = path.join(logDir, "app.log");
-
-if (!fs.existsSync(logDir)) {
-  fs.mkdirSync(logDir);
-}
+// src/lib/logger.ts
 
 type LogLevel = "info" | "warn" | "error";
 
@@ -19,14 +11,15 @@ export function log(
     timestamp: new Date().toISOString(),
     level,
     message,
-    ...meta,
+    ...(meta ?? {}),
   };
 
-  const line = JSON.stringify(entry);
-
-  // console (masih kelihatan di terminal)
-  console.log(line);
-
-  // file (dibaca promtail)
-  fs.appendFileSync(logFile, line + "\n");
+  // Structured logging (aman di Vercel)
+  if (level === "error") {
+    console.error(JSON.stringify(entry));
+  } else if (level === "warn") {
+    console.warn(JSON.stringify(entry));
+  } else {
+    console.log(JSON.stringify(entry));
+  }
 }
