@@ -8,10 +8,14 @@ import { log } from "@/lib/logger";
 ======================= */
 export async function PUT(
   req: NextRequest,
-  context: { params: { id: string } } // gunakan context, jangan destructure langsung
+  context: { params: Record<string, string> }
 ) {
   try {
-    const { id } = context.params; // ambil id dari context.params
+    const id = context.params?.id;
+    if (!id) {
+      return NextResponse.json({ message: "ID tidak ditemukan" }, { status: 400 });
+    }
+
     const body = await req.json();
     const { nama, kategori, harga, satuan, wilayah } = body;
 
@@ -57,10 +61,13 @@ export async function PUT(
 ======================= */
 export async function DELETE(
   req: NextRequest,
-  context: { params: { id: string } }
+  context: { params: Record<string, string> }
 ) {
   try {
-    const { id } = context.params;
+    const id = context.params?.id;
+    if (!id) {
+      return NextResponse.json({ message: "ID tidak ditemukan" }, { status: 400 });
+    }
 
     await prisma.harga.delete({ where: { id: Number(id) } });
 
