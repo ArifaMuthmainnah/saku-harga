@@ -6,7 +6,10 @@ import { log } from "@/lib/logger";
 /* =======================
    PUT /api/harga/:id
 ======================= */
-export async function PUT(req: NextRequest, context: any) {
+export async function PUT(
+  req: NextRequest,
+  context: { params: { id: string } | undefined } // fix Next.js 15
+) {
   try {
     const id = context.params?.id;
     if (!id) {
@@ -56,7 +59,10 @@ export async function PUT(req: NextRequest, context: any) {
 /* =======================
    DELETE /api/harga/:id
 ======================= */
-export async function DELETE(req: NextRequest, context: any) {
+export async function DELETE(
+  req: NextRequest,
+  context: { params: { id: string } | undefined } // fix Next.js 15
+) {
   try {
     const id = context.params?.id;
     if (!id) {
