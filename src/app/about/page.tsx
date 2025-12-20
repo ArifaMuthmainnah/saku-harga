@@ -68,7 +68,7 @@ export default function AboutPage() {
             <TeamCard
               name="Nur Shadiqah"
               id="2308107010061"
-              role="Full-Stack Developer"
+              role="Front-end Developer"
               // photo="/team/diqa.jpg"
             />
           </div>

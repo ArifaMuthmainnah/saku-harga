@@ -22,3 +22,23 @@
 {"timestamp":"2025-12-19T23:42:35.698Z","level":"info","message":"GET /api/harga","wilayah":null}
 {"timestamp":"2025-12-19T23:42:44.859Z","level":"info","message":"Harga berhasil dihapus","id":"226"}
 {"timestamp":"2025-12-19T23:42:44.929Z","level":"info","message":"GET /api/harga","wilayah":null}
+{"timestamp":"2025-12-20T10:27:18.357Z","level":"info","message":"GET /api/harga","wilayah":null}
+{"timestamp":"2025-12-20T10:27:18.362Z","level":"info","message":"GET /api/harga","wilayah":null}
+{"timestamp":"2025-12-20T10:32:20.665Z","level":"info","message":"Register success","username":"lzmanis"}
+{"timestamp":"2025-12-20T10:32:46.303Z","level":"warn","message":"Login failed: wrong password","username":"lzmanis"}
+{"timestamp":"2025-12-20T10:32:53.398Z","level":"info","message":"Login success","username":"lzmanis","role":"user"}
+{"timestamp":"2025-12-20T10:33:03.722Z","level":"info","message":"GET /api/harga","wilayah":null}
+{"timestamp":"2025-12-20T10:33:03.727Z","level":"info","message":"GET /api/harga","wilayah":null}
+{"timestamp":"2025-12-20T10:33:03.730Z","level":"info","message":"GET /api/harga","wilayah":null}
+{"timestamp":"2025-12-20T10:33:03.732Z","level":"info","message":"GET /api/harga","wilayah":null}
+{"timestamp":"2025-12-20T10:34:31.510Z","level":"info","message":"Login success","username":"admin","role":"admin"}
+{"timestamp":"2025-12-20T10:34:38.600Z","level":"info","message":"GET /api/harga","wilayah":null}
+{"timestamp":"2025-12-20T10:34:38.606Z","level":"info","message":"GET /api/harga","wilayah":null}
+{"timestamp":"2025-12-20T10:34:38.611Z","level":"info","message":"GET /api/harga","wilayah":null}
+{"timestamp":"2025-12-20T10:34:38.618Z","level":"info","message":"GET /api/harga","wilayah":null}
+{"timestamp":"2025-12-20T10:35:04.335Z","level":"info","message":"POST /api/harga success","id":227,"nama":"tes","wilayah":"Aceh","kategori":"pokok"}
+{"timestamp":"2025-12-20T10:35:04.518Z","level":"info","message":"GET /api/harga","wilayah":null}
+{"timestamp":"2025-12-20T10:35:27.094Z","level":"info","message":"Harga berhasil diupdate","id":"227","nama":"tes"}
+{"timestamp":"2025-12-20T10:35:27.206Z","level":"info","message":"GET /api/harga","wilayah":null}
+{"timestamp":"2025-12-20T10:35:47.186Z","level":"info","message":"Harga berhasil dihapus","id":"227"}
+{"timestamp":"2025-12-20T10:35:47.282Z","level":"info","message":"GET /api/harga","wilayah":null}
